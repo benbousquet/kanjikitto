@@ -45,10 +45,8 @@ function KanjiPractice() {
     };
   };
 
-  console.log(answerHistory);
 
   const nextClick = (answeredCorrect: boolean) => {
-    console.log(answeredCorrect);
     if (testSet.length - 1 > currentCard) {
       setAnswerHistory([
         ...answerHistory,

@@ -14,7 +14,7 @@ function FlashCard({
   const [isShown, setIsShown] = useState(false);
 
   const handleClick = (e: MouseEvent) => {
-    const answer: AnswerStates.correct | AnswerStates.wrong = e.target.name; // also not sure if this is ok..
+    const answer: AnswerStates.correct | AnswerStates.wrong = (e.target as HTMLElement).id as AnswerStates; // also not sure if this is ok..
     if (!isShown) {
       setIsShown(true);
       return;

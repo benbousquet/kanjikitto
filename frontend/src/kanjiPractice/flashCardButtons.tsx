@@ -11,14 +11,14 @@ function FlashCardButtons({
       {isShown ? (
         <div className="flex flex-row w-5/6 h-3/6">
           <button
-            name={AnswerStates.wrong} // not sure if this is ok?
+            id={AnswerStates.wrong} // not sure if this is ok?
             className="border-2 rounded-lg bg-red-600 grow"
             onClick={handleClick}
           >
             Wrong
           </button>
           <button
-            name={AnswerStates.correct}
+            id={AnswerStates.correct}
             className="border-2 rounded-lg bg-green-600 grow"
             onClick={handleClick}
           >
