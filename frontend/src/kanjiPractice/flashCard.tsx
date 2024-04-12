@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
+import FlashCardButtons from "./flashCardButtons";
+import { AnswerStates } from "./kanjiPractice.types";
 
 function FlashCard({
   front,
@@ -7,30 +9,31 @@ function FlashCard({
 }: {
   front: string;
   back: string;
-  cb: Function;
+  cb: (answeredCorrect: boolean) => void;
 }) {
   const [isShown, setIsShown] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
+    const answer: AnswerStates.correct | AnswerStates.wrong = e.target.name; // also not sure if this is ok..
     if (!isShown) {
       setIsShown(true);
       return;
     }
-    cb();
+    if (answer == AnswerStates.correct) {
+      cb(true);
+    } else {
+      cb(false);
+    }
     setIsShown(false);
   };
+
   return (
     <div className="flex flex-col bg-gray-600 w-80 h-96 pt-5 pb-5 rounded-lg items-center">
       <div className="flex flex-col h-4/6 items-center text-white">
         <p>{front}</p>
         <p>{isShown ? back : ""}</p>
       </div>
-      <button
-        className="border-2 w-5/6 h-3/6 rounded-lg bg-white"
-        onClick={handleClick}
-      >
-        {isShown ? "Next" : "Show Answer"}
-      </button>
+      <FlashCardButtons isShown={isShown} handleClick={handleClick} />
     </div>
   );
 }
