@@ -87,20 +87,26 @@ function KanjiPractice() {
 
   const renderStart = () => {
     return (
-      <>
-        <p>Reviewing INSERT DECK NAME</p>
-        <label className="items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={options.shuffle}
-            onClick={handleShuffleClick}
-          />
-          <span className="ms-3 text-sm font-medium">Shuffle</span>
-        </label>
-        <button onClick={() => handleStateChange(StateValues.started)}>
+      <div className="bg-white rounded-md w-72 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
+        <p className="text-4xl font-bold">Kanji Practice</p>
+        <div className="flex flex-col items-center justify-evenly">
+          <p className="text-xl">Genki 1 Chapter 1</p>
+          <label className="items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={options.shuffle}
+              onClick={handleShuffleClick}
+            />
+            <span className="ms-3 text-sm font-medium">Shuffle</span>
+          </label>
+        </div>
+        <button
+          className="rounded-md bg-gray-200 p-4 h-14 w-56"
+          onClick={() => handleStateChange(StateValues.started)}
+        >
           Start
         </button>
-      </>
+      </div>
     );
   };
 
@@ -163,8 +169,7 @@ function KanjiPractice() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-blue-500">
-      <p className="text-2xl font-bold text-white">Kanji Practice Module</p>
+    <div className="flex flex-col items-center h-screen bg-blue-500 justify-center">
       {state == StateValues.start ? (
         renderStart()
       ) : state == StateValues.started ? (
