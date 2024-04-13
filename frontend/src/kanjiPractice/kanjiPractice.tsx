@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import FlashCard from "./flashCard";
+import ProgressBar from "./progressBar";
 
 interface Card {
   front: string;
@@ -50,7 +51,7 @@ function KanjiPractice() {
 
   useEffect(() => {
     setQueue(testSet);
-  }, [])
+  }, []);
 
   const handleStateChange = (newState: StateValues) => {
     switch (newState) {
@@ -106,10 +107,19 @@ function KanjiPractice() {
   const renderReview = () => {
     return (
       <>
-        <p className="text-xl">
-          {getStatistics().answeredCorrect} / {getStatistics().totalAnswered}
-        </p>
-        <div className="flex grow items-center">
+        <div className="flex flex-col items-center w-96">
+          <p className="text-2xl text-white">Score</p>
+          <p className="text-xl text-white">
+            {getStatistics().answeredCorrect} / {getStatistics().totalAnswered}
+          </p>
+        </div>
+        <div className="flex flex-col grow items-center max-w-80">
+          <div className="w-full my-2">
+            <ProgressBar
+              progress={getStatistics().totalAnswered}
+              outOf={queue.length}
+            />
+          </div>
           <FlashCard
             front={queue[currentCard].front}
             back={queue[currentCard].back}
@@ -153,8 +163,8 @@ function KanjiPractice() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen">
-      <p className="text-2xl font-bold">Kanji Practice Module</p>
+    <div className="flex flex-col items-center h-screen bg-blue-500">
+      <p className="text-2xl font-bold text-white">Kanji Practice Module</p>
       {state == StateValues.start ? (
         renderStart()
       ) : state == StateValues.started ? (

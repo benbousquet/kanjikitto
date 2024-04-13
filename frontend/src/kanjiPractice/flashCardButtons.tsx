@@ -1,3 +1,7 @@
+import {
+  ArrowUturnLeftIcon,
+  ArrowUturnRightIcon,
+} from "@heroicons/react/16/solid";
 import { AnswerStates } from "./kanjiPractice.types";
 function FlashCardButtons({
   isShown,
@@ -7,33 +11,39 @@ function FlashCardButtons({
   handleClick: React.MouseEventHandler;
 }) {
   return (
-    <>
+    <div className="h-28 w-full flex flex-col items-center">
       {isShown ? (
-        <div className="flex flex-row w-5/6 h-3/6">
+        <div className="flex flex-row w-5/6 h-20">
           <button
             id={AnswerStates.wrong} // not sure if this is ok?
-            className="border-2 rounded-lg bg-red-600 grow"
+            className="border-2 rounded-lg bg-gray-200 m-2 h-14 grow"
             onClick={handleClick}
           >
-            Wrong
+            <div className="flex items-center justify-center">
+              <ArrowUturnLeftIcon className="text-gray-600 h-5 w-5" />
+              Wrong
+            </div>
           </button>
           <button
             id={AnswerStates.correct}
-            className="border-2 rounded-lg bg-green-600 grow"
+            className="border-2 rounded-lg bg-gray-200 m-2 h-14 grow"
             onClick={handleClick}
           >
-            Correct
+            <div className="flex items-center justify-center">
+              Correct
+              <ArrowUturnRightIcon className="text-gray-600 h-5 w-5" />
+            </div>
           </button>
         </div>
       ) : (
         <button
-          className="border-2 w-5/6 h-3/6 rounded-lg bg-white"
+          className="border-2 rounded-lg bg-gray-200 m-2 h-14 w-5/6"
           onClick={handleClick}
         >
-          {isShown ? "Next" : "Show Answer"}
+          Show Answer
         </button>
       )}
-    </>
+    </div>
   );
 }
 
