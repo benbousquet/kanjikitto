@@ -2,23 +2,23 @@ import { useEffect, useState } from "react";
 import FlashCard from "./flashCard";
 import ProgressBar from "./progressBar";
 
-interface Card {
+type Card = {
   front: string;
   back: string;
 }
 
-interface HistoryEntry {
+type HistoryEntry = {
   card: Card;
   answeredCorrect: boolean;
   date: Date;
 }
 
-interface SessionStatistics {
+type SessionStatistics =  {
   answeredCorrect: number;
   totalAnswered: number;
 }
 
-interface Options {
+type Options = {
   shuffle: boolean;
 }
 

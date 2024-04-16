@@ -1,9 +1,9 @@
 
-function DeckViewList () {
+// function DeckViewList () {
   
-  return (
+//   return (
 
-  )
-}
+//   )
+// }
 
-export default DeckViewList
+// export default DeckViewList
