@@ -44,7 +44,6 @@ function FlashCard({
   };
 
   const handleHover = (e: MouseEvent, key: number) => {
-    console.log(e.type);
     if (e.type === "mouseenter") {
       setKanjiInfoState({
         shown: true,

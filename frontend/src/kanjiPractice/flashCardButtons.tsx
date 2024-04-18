@@ -19,19 +19,31 @@ function FlashCardButtons({
             className="border-2 rounded-lg bg-gray-200 m-2 h-14 grow"
             onClick={handleClick}
           >
-            <div className="flex items-center justify-center">
-              <ArrowUturnLeftIcon className="text-gray-600 h-5 w-5" />
+            <div
+              className="flex items-center justify-center"
+              id={AnswerStates.wrong}
+            >
+              <ArrowUturnLeftIcon
+                className="text-gray-600 h-5 w-5"
+                id={AnswerStates.wrong}
+              />
               Wrong
             </div>
           </button>
           <button
-            id={AnswerStates.correct}
             className="border-2 rounded-lg bg-gray-200 m-2 h-14 grow"
+            id={AnswerStates.correct}
             onClick={handleClick}
           >
-            <div className="flex items-center justify-center">
+            <div
+              className="flex items-center justify-center"
+              id={AnswerStates.correct}
+            >
               Correct
-              <ArrowUturnRightIcon className="text-gray-600 h-5 w-5" />
+              <ArrowUturnRightIcon
+                className="text-gray-600 h-5 w-5"
+                id={AnswerStates.correct}
+              />
             </div>
           </button>
         </div>

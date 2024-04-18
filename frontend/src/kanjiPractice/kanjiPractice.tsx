@@ -134,10 +134,7 @@ function KanjiPractice() {
               outOf={queue.length}
             />
           </div>
-          <FlashCard
-            card={queue[currentCard]}
-            cb={nextClick}
-          />
+          <FlashCard card={queue[currentCard]} cb={nextClick} />
         </div>
       </>
     );
