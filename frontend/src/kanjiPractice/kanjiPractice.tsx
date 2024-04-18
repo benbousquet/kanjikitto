@@ -5,6 +5,7 @@ import ProgressBar from "./progressBar";
 type Card = {
   front: string;
   back: string;
+  definition: string;
 };
 
 type HistoryEntry = {
@@ -21,7 +22,6 @@ type SessionStatistics = {
 type Options = {
   shuffle: boolean;
 };
-
 
 enum StateValues {
   start = 0,
@@ -40,15 +40,14 @@ function KanjiPractice() {
 
   const [state, setState] = useState<StateValues>(StateValues.start);
 
-
   const testSet: Card[] = [
-    { back: "綺麗", front: "きれい" },
-    { back: "優しい", front: "やさしい" },
-    { back: "家", front: "いえ" },
-    { back: "日本", front: "にほん" },
-    { back: "可愛い", front: "かわいい" },
-    { back: "甘い", front: "あまい" },
-    { back: "赤い", front: "あかい" },
+    { back: "綺麗", front: "きれい", definition: "pretty, clean" },
+    { back: "優しい", front: "やさしい", definition: "kind" },
+    { back: "家", front: "いえ", definition: "home" },
+    { back: "日本", front: "にほん", definition: "japan" },
+    { back: "可愛い", front: "かわいい", definition: "cute" },
+    { back: "甘い", front: "あまい", definition: "sweet" },
+    { back: "赤い", front: "あかい", definition: "red" },
   ];
 
   useEffect(() => {
@@ -136,8 +135,7 @@ function KanjiPractice() {
             />
           </div>
           <FlashCard
-            front={queue[currentCard].front}
-            back={queue[currentCard].back}
+            card={queue[currentCard]}
             cb={nextClick}
           />
         </div>
@@ -192,4 +190,5 @@ function KanjiPractice() {
   );
 }
 
+export { type Card };
 export default KanjiPractice;

@@ -2,6 +2,7 @@ import { MouseEvent, useState } from "react";
 import FlashCardButtons from "./flashCardButtons";
 import { AnswerStates } from "./kanjiPractice.types";
 import KanjiInfo from "./kanjiInfo";
+import { Card } from "./kanjiPractice";
 
 type KanjiInfo = {
   shown: boolean;
@@ -10,12 +11,10 @@ type KanjiInfo = {
 };
 
 function FlashCard({
-  front,
-  back,
+  card,
   cb,
 }: {
-  front: string;
-  back: string;
+  card: Card;
   cb: (answeredCorrect: boolean) => void;
 }) {
   const [isShown, setIsShown] = useState(false);
@@ -25,6 +24,8 @@ function FlashCard({
     word: "",
     key: -1,
   });
+
+  const { front, back, definition } = card;
 
   const handleClick = (e: MouseEvent) => {
     const answer: AnswerStates.correct | AnswerStates.wrong = (
@@ -56,7 +57,6 @@ function FlashCard({
         word: "",
         key: -1,
       });
-
     }
   };
 
@@ -85,6 +85,7 @@ function FlashCard({
             return letter(l, index);
           })}
         </div>
+        <p className="text-xl">{isShown ? definition : ""}</p>
         <KanjiInfo state={kanjiInfoState} />
       </div>
       <FlashCardButtons isShown={isShown} handleClick={handleClick} />
