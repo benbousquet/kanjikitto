@@ -5,22 +5,23 @@ import ProgressBar from "./progressBar";
 type Card = {
   front: string;
   back: string;
-}
+};
 
 type HistoryEntry = {
   card: Card;
   answeredCorrect: boolean;
   date: Date;
-}
+};
 
-type SessionStatistics =  {
+type SessionStatistics = {
   answeredCorrect: number;
   totalAnswered: number;
-}
+};
 
 type Options = {
   shuffle: boolean;
-}
+};
+
 
 enum StateValues {
   start = 0,
@@ -39,14 +40,15 @@ function KanjiPractice() {
 
   const [state, setState] = useState<StateValues>(StateValues.start);
 
+
   const testSet: Card[] = [
-    { front: "綺麗", back: "きれい" },
-    { front: "優しい", back: "やさしい" },
-    { front: "家", back: "いえ" },
-    { front: "日本", back: "にほん" },
-    { front: "可愛い", back: "かわいい" },
-    { front: "甘い", back: "あまい" },
-    { front: "赤い", back: "あかい" },
+    { back: "綺麗", front: "きれい" },
+    { back: "優しい", front: "やさしい" },
+    { back: "家", front: "いえ" },
+    { back: "日本", front: "にほん" },
+    { back: "可愛い", front: "かわいい" },
+    { back: "甘い", front: "あまい" },
+    { back: "赤い", front: "あかい" },
   ];
 
   useEffect(() => {
@@ -90,7 +92,7 @@ function KanjiPractice() {
       <div className="bg-white rounded-md w-72 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
         <p className="text-4xl font-bold">Kanji Practice</p>
         <div className="flex flex-col items-center justify-evenly">
-          <p className="text-xl">Genki 1 Chapter 1</p>
+          <p className="text-2xl">Genki 1 Chapter 1</p>
           <label className="items-center cursor-pointer">
             <input
               type="checkbox"
@@ -99,6 +101,13 @@ function KanjiPractice() {
             />
             <span className="ms-3 text-sm font-medium">Shuffle</span>
           </label>
+          <div className="border-gray-600 border-2 rounded-md p-2">
+            <p className="text-xl">How to use?</p>
+            <p className="text-md">
+              Grab a whiteboard, write kanji from shown hiragana, click show
+              answer, erase and repeat
+            </p>
+          </div>
         </div>
         <button
           className="rounded-md bg-gray-200 p-4 h-14 w-56"
@@ -169,15 +178,17 @@ function KanjiPractice() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-blue-500 justify-center">
-      {state == StateValues.start ? (
-        renderStart()
-      ) : state == StateValues.started ? (
-        renderReview()
-      ) : (
-        <p>Finished</p>
-      )}
-    </div>
+    <>
+      <div className="flex flex-col items-center h-screen bg-blue-500 justify-center">
+        {state == StateValues.start ? (
+          renderStart()
+        ) : state == StateValues.started ? (
+          renderReview()
+        ) : (
+          <p>Finished</p>
+        )}
+      </div>
+    </>
   );
 }
 
