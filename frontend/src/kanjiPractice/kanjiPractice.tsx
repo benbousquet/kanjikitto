@@ -121,12 +121,14 @@ function KanjiPractice() {
       <div className="bg-white rounded-md w-72 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
         <p className="text-4xl font-bold">Kanji Practice</p>
         <div className="flex flex-col items-center justify-evenly">
-          <p className="text-2xl">{deckInfo.name} {deckInfo.id}</p>
+          <p className="text-2xl">
+            {deckInfo.name} {deckInfo.id}
+          </p>
           <label className="items-center cursor-pointer">
             <input
               type="checkbox"
               checked={options.shuffle}
-              onClick={handleShuffleClick}
+              onChange={handleShuffleClick}
             />
             <span className="ms-3 text-sm font-medium">Shuffle</span>
           </label>
