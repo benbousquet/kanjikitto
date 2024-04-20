@@ -14,7 +14,7 @@ function KanjiInfo({ state }: { state: KanjiInfoType }) {
     return <img src={genSvgUrl(word)} className="w-full" />;
   };
 
-  return <div className={`max-w-96 h-96 w-screen rounded-lg bg-opacity-95 border-2 bg-white absolute ${!shown && "hidden"} top-1/3`}>{shown && kanjiSVG()}</div>;
+  return <div className={`max-w-96 h-96 w-screen rounded-lg bg-opacity-95 border-2 bg-white absolute ${!shown && "hidden"} bottom-10`}>{shown && kanjiSVG()}</div>;
 }
 
 export default KanjiInfo;

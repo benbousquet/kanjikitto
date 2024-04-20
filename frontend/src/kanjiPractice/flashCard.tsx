@@ -76,7 +76,7 @@ function FlashCard({
   };
 
   return (
-    <div className="flex flex-col bg-white border-2 min-w-80 max-w-96 rounded-lg items-center m-6">
+    <div className="flex flex-col bg-white border-2 w-96 rounded-lg items-center">
       <div className="flex flex-col h-96 items-center text-gray-600">
         <p className="text-4xl p-5">{front}</p>
         <div>

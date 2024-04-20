@@ -118,20 +118,12 @@ function KanjiPractice() {
 
   const renderStart = () => {
     return (
-      <div className="bg-white rounded-md w-72 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
+      <div className="bg-white rounded-md max-w-96 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
         <p className="text-4xl font-bold">Kanji Practice</p>
         <div className="flex flex-col items-center justify-evenly">
-          <p className="text-2xl">
+          <p className="text-2xl p-4">
             {deckInfo.name} {deckInfo.id}
           </p>
-          <label className="items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={options.shuffle}
-              onChange={handleShuffleClick}
-            />
-            <span className="ms-3 text-sm font-medium">Shuffle</span>
-          </label>
           <div className="border-gray-600 border-2 rounded-md p-2">
             <p className="text-xl">How to use?</p>
             <p className="text-md">
@@ -139,6 +131,14 @@ function KanjiPractice() {
               answer, erase and repeat
             </p>
           </div>
+          <label className="items-center cursor-pointer py-2">
+            <input
+              type="checkbox"
+              checked={options.shuffle}
+              onChange={handleShuffleClick}
+            />
+            <span className="ms-3 text-sm font-medium p-2">Shuffle</span>
+          </label>
         </div>
         <button
           className="rounded-md bg-gray-200 p-4 h-14 w-56"
@@ -152,14 +152,14 @@ function KanjiPractice() {
 
   const renderReview = () => {
     return (
-      <>
-        <div className="flex flex-col items-center w-96">
+      <div className="max-w-md">
+        <div className="flex flex-col items-center">
           <p className="text-2xl text-white">Score</p>
           <p className="text-xl text-white">
             {getStatistics().answeredCorrect} / {getStatistics().totalAnswered}
           </p>
         </div>
-        <div className="flex flex-col grow items-center max-w-80">
+        <div className="flex flex-col grow items-center">
           <div className="w-full my-2">
             <ProgressBar
               progress={getStatistics().totalAnswered}
@@ -168,7 +168,7 @@ function KanjiPractice() {
           </div>
           <FlashCard card={queue[currentCard]} cb={nextClick} />
         </div>
-      </>
+      </div>
     );
   };
 
