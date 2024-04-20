@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <KanjiPractice />,
   },
   {
-    path: "/decks",
+    path: "/",
     element: <DeckViewList />,
   },
 ]);
