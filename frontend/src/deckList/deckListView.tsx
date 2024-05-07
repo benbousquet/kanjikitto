@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import DeckCard from "./deckCard";
+import { Input } from "../@/components/ui/input";
+import { Button } from "../@/components/ui/button";
 
 type DeckInfo = {
   name: string;
@@ -65,8 +67,13 @@ function DeckViewList() {
     ]);
   }, []);
   return (
-    <div className="bg-white m-auto max-w-5xl w-full flex flex-col rounded-lg mt-4 px-1.5 py-2">
-      <p className="text-5xl text-center p-4">New Decks</p>
+    <div className="m-auto max-w-5xl w-full flex flex-col rounded-lg mt-4 px-1.5">
+      <p className="text-4xl text-center my-4">Home</p>
+      <div className="flex">
+        <Input placeholder="Search all decks..." />
+        <Button className="ml-2">Search</Button>
+      </div>
+      <p className="text-2xl text-center mt-4">Newest</p>
       <div className="flex flex-row flex-wrap justify-around">
         {decksRes.map((deck) => (
           <DeckCard deck={deck} />

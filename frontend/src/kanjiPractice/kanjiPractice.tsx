@@ -3,6 +3,23 @@ import FlashCard from "./flashCard";
 import ProgressBar from "./progressBar";
 import { useParams } from "react-router-dom";
 import { DeckInfo } from "../deckList/deckListView";
+import { Switch } from "../@/components/ui/switch";
+import { Label } from "../@/components/ui/label";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../@/components/ui/accordion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../@/components/ui/card";
+import { Button } from "../@/components/ui/button";
 
 type Card = {
   front: string;
@@ -118,34 +135,45 @@ function KanjiPractice() {
 
   const renderStart = () => {
     return (
-      <div className="bg-white rounded-md max-w-96 p-5 m-4 h-96 text-gray-600 flex flex-col items-center justify-evenly">
-        <p className="text-4xl font-bold">Kanji Practice</p>
-        <div className="flex flex-col items-center justify-evenly">
-          <p className="text-2xl p-4">
-            {deckInfo.name} {deckInfo.id}
-          </p>
-          <div className="border-gray-600 border-2 rounded-md p-2">
-            <p className="text-xl">How to use?</p>
-            <p className="text-md">
-              Grab a whiteboard, write kanji from shown hiragana, click show
-              answer, erase and repeat
-            </p>
-          </div>
-          <label className="items-center cursor-pointer py-2">
-            <input
-              type="checkbox"
-              checked={options.shuffle}
-              onChange={handleShuffleClick}
-            />
-            <span className="ms-3 text-sm font-medium p-2">Shuffle</span>
-          </label>
-        </div>
-        <button
-          className="rounded-md bg-gray-200 p-4 h-14 w-56"
-          onClick={() => handleStateChange(StateValues.started)}
-        >
-          Start
-        </button>
+      <div className="w-screen h-screen">
+        <Card className="h-screen">
+          <CardHeader>
+            <CardTitle>Deck Practice</CardTitle>
+            <CardDescription>{deckInfo.name} by Jeff</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>This deck is Blah Blah Blah</p>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>How to use?</AccordionTrigger>
+                <AccordionContent>
+                  Grab a whiteboard, write kanji from shown hiragana, click show
+                  answer, erase and repeat
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="shuffle"
+                checked={options.shuffle}
+                onCheckedChange={handleShuffleClick}
+              />
+              <Label htmlFor="shuffle">Shuffle</Label>
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button
+              onClick={() => console.log("Back")}
+            >
+              Back
+            </Button>
+            <Button
+              onClick={() => handleStateChange(StateValues.started)}
+            >
+              Start
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     );
   };
@@ -206,15 +234,13 @@ function KanjiPractice() {
 
   return (
     <>
-      <div className="flex flex-col items-center h-screen justify-center">
-        {state == StateValues.start ? (
-          renderStart()
-        ) : state == StateValues.started ? (
-          renderReview()
-        ) : (
-          <p>Finished</p>
-        )}
-      </div>
+      {state == StateValues.start ? (
+        renderStart()
+      ) : state == StateValues.started ? (
+        renderReview()
+      ) : (
+        <p>Finished</p>
+      )}
     </>
   );
 }
