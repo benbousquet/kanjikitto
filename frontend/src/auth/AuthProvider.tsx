@@ -23,7 +23,7 @@ export type AuthContextObj = {
 const AuthContext = createContext<AuthContextObj | undefined>(undefined);
 
 // I couldnt figure out the type so i put any :(
-export function AuthProvider({ children }: any): AuthContextObj | undefined {
+export function AuthProvider({ children }: any) {
   const [user, setUser] = useState(undefined);
   async function getUser() {
     const res = await fetch("/api/status", { method: "GET" });
