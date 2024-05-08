@@ -9,7 +9,7 @@ function Navbar() {
         Kanji Kit
       </p>
       <div>
-        <Link to="/login/">
+        <Link to="/profile">
           <Button variant="outline" size="icon" className="mx-1">
             <User className="h-4 w-4" />
           </Button>
