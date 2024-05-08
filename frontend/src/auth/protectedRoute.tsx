@@ -4,19 +4,26 @@ import LoginModal from "./loginModal";
 
 export default function ProtectedRoute({ children }: any) {
   const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [retrievedAuth, setRetrievedAuth] = useState<boolean>(false);
   const authContext = useAuth();
   useEffect(() => {
-    const user = authContext?.getUser();
-    if (user !== undefined) {
-      setIsAuth(true);
+    async function fetchData() {
+      const user = await authContext?.getUser();
+      if (user !== undefined) {
+        setIsAuth(true);
+      }
+      setRetrievedAuth(true);
     }
+    fetchData();
   }, []);
 
-  console.log(isAuth);
-  return (
-    <>
-      <LoginModal isAuth={isAuth} setIsAuth={setIsAuth} />
-      {isAuth && children}
-    </>
-  );
+  function content() {
+    return (
+      <>
+        <LoginModal isAuth={isAuth} setIsAuth={setIsAuth} />
+        {isAuth && children}
+      </>
+    );
+  }
+  return <>{retrievedAuth && content()}</>;
 }

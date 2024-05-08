@@ -27,7 +27,7 @@ export function AuthProvider({ children }: any) {
   const [user, setUser] = useState(undefined);
   async function getUser() {
     const res = await fetch("/api/status", { method: "GET" });
-    if(res.status === 200) {
+    if (res.status === 200) {
       const resJSON: UserContextInfo = await res.json();
       // setUser(resJSON)
       return resJSON;
@@ -50,8 +50,10 @@ export function AuthProvider({ children }: any) {
 
   async function logout() {
     const res = await fetch("/api/logout", { method: "GET" });
-    console.log(res.json());
+    const resJSON = await res.json();
     setUser(undefined);
+
+    window.location.href = resJSON.redirectURL;
     return;
   }
 

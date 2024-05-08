@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,6 +19,7 @@ export default function LoginModal({
   setIsAuth: (boolean: any) => void;
 }) {
   const authContext = useAuth();
+  const navigate = useNavigate();
   return (
     <AlertDialog open={!isAuth} onOpenChange={setIsAuth}>
       <AlertDialogContent>
@@ -30,7 +32,13 @@ export default function LoginModal({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => {}}>Home</AlertDialogCancel>
+          <AlertDialogCancel
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
               authContext?.login();
