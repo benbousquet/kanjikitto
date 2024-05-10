@@ -10,6 +10,7 @@ import {
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
 import { useAuth } from "./AuthProvider";
+import { useEffect, useState } from "react";
 
 export default function LoginModal({
   isAuth,
@@ -18,8 +19,15 @@ export default function LoginModal({
   isAuth: boolean;
   setIsAuth: (boolean: any) => void;
 }) {
+  const [loginURL, setLoginURL] = useState<string>();
   const authContext = useAuth();
   const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchData() {
+      setLoginURL((await authContext?.getLoginURL()) || "");
+    }
+    fetchData();
+  }, []);
   return (
     <AlertDialog open={!isAuth} onOpenChange={setIsAuth}>
       <AlertDialogContent>
@@ -41,7 +49,7 @@ export default function LoginModal({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              authContext?.login();
+              window.open(loginURL, "_blank");
             }}
           >
             Login

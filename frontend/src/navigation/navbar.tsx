@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 function Navbar() {
   function ProtectedNav() {
     const [isAuth, setIsAuth] = useState<boolean>(false);
+    const [logoutURL, setLogoutURL] = useState<string>("");
     const authContext = useAuth();
     useEffect(() => {
       async function fetchData() {
         const user = await authContext?.getUser();
         if (user !== undefined) {
           setIsAuth(true);
+          setLogoutURL((await authContext?.getLogoutURL()) || "");
         }
       }
       fetchData();
@@ -27,8 +29,8 @@ function Navbar() {
           variant="outline"
           size="icon"
           className="mx-1"
-          onClick={async () => {
-            await authContext?.logout();
+          onClick={() => {
+            window.location.href = logoutURL;
           }}
         >
           <LogOut className="h-4 w-4" />

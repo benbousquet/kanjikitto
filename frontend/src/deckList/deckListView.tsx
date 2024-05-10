@@ -51,7 +51,7 @@ function DeckViewList() {
       {
         name: "JLPT N2 Kanji List",
         description: "This deck contains all the N2 kanji",
-        id: "4",
+        id: "5",
         author: "JP Learner",
         length: 20,
         dateCreated: new Date(),
@@ -59,7 +59,7 @@ function DeckViewList() {
       {
         name: "JLPT N1 Kanji List",
         description: "This deck contains all the N1 kanji",
-        id: "5",
+        id: "6",
         author: "JP Learner",
         length: 20,
         dateCreated: new Date(),
@@ -76,7 +76,7 @@ function DeckViewList() {
       <p className="text-2xl text-center mt-4">Newest</p>
       <div className="flex flex-row flex-wrap justify-around">
         {decksRes.map((deck) => (
-          <DeckCard deck={deck} />
+          <DeckCard key={deck.id} deck={deck} />
         ))}
       </div>
     </div>

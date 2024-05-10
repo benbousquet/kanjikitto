@@ -15,9 +15,9 @@ export type UserContextInfo = {
 export type AuthContextObj = {
   user: UserContextInfo | undefined;
   getUser: () => Promise<UserContextInfo | undefined>;
-  login: () => Promise<void>;
-  register: () => Promise<void>;
-  logout: () => Promise<void>;
+  getLoginURL: () => Promise<void>;
+  getRegisterURL: () => Promise<void>;
+  getLogoutURL: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextObj | undefined>(undefined);
@@ -35,30 +35,29 @@ export function AuthProvider({ children }: any) {
     return undefined;
   }
 
-  async function login() {
+  async function getLoginURL() {
     const res = await fetch("/api/login", { method: "GET" });
     const resJSON = await res.json();
-    window.open(resJSON.redirectURL, "_blank", "noreferrer");
-    return;
+    return resJSON.redirectURL;
   }
 
-  async function register() {
+  async function getRegisterURL() {
     const res = await fetch("/api/register", { method: "GET" });
-    console.log(res);
-    return;
+    const resJSON = await res.json();
+    return resJSON.redirectURL;
   }
 
-  async function logout() {
+  async function getLogoutURL() {
     const res = await fetch("/api/logout", { method: "GET" });
     const resJSON = await res.json();
     setUser(undefined);
-
-    window.location.href = resJSON.redirectURL;
-    return;
+    return resJSON.redirectURL;
   }
 
   return (
-    <AuthContext.Provider value={{ user, getUser, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, getUser, getLoginURL, getRegisterURL, getLogoutURL }}
+    >
       {children}
     </AuthContext.Provider>
   );

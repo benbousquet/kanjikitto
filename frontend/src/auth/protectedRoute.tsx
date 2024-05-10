@@ -16,6 +16,7 @@ export default function ProtectedRoute({ children }: any) {
     }
     fetchData();
   }, []);
+  console.log(children)
 
   function content() {
     return (
