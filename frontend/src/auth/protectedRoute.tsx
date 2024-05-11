@@ -13,10 +13,11 @@ export default function ProtectedRoute({ children }: any) {
         setIsAuth(true);
       }
       setRetrievedAuth(true);
+      console.log(user)
     }
     fetchData();
   }, []);
-  console.log(children)
+  console.log(isAuth)
 
   function content() {
     return (

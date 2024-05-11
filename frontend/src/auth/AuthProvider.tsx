@@ -27,6 +27,7 @@ export function AuthProvider({ children }: any) {
   const [user, setUser] = useState(undefined);
   async function getUser() {
     const res = await fetch("/api/status", { method: "GET" });
+      console.log(res)
     if (res.status === 200) {
       const resJSON: UserContextInfo = await res.json();
       // setUser(resJSON)

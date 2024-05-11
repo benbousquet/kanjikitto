@@ -4,24 +4,32 @@ import {
   SessionManager,
   UserType,
 } from "@kinde-oss/kinde-typescript-sdk";
+import { Context } from "hono";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
 
-let store: Record<string, unknown> = {};
-
-export const sessionManager: SessionManager = {
+export const sessionManager = (c: Context): SessionManager => ({
   async getSessionItem(key: string) {
-    return store[key];
+    const session =  getCookie(c, key);
+    return session;
   },
   async setSessionItem(key: string, value: unknown) {
-    store[key] = value;
+    setCookie(c, key, value as string, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Lax",
+    });
   },
   async removeSessionItem(key: string) {
-    delete store[key];
+    deleteCookie(c, key);
   },
   async destroySession() {
-    store = {};
+    deleteCookie(c, "id_token");
+    deleteCookie(c, "access_token");
+    deleteCookie(c, "user");
+    deleteCookie(c, "refresh_token");
   },
-};
+});
 
 type Env = {
   Variables: {
@@ -31,12 +39,12 @@ type Env = {
 
 export const getUser = createMiddleware<Env>(async (c, next) => {
   try {
-    const isAuth = await kindeClient.isAuthenticated(sessionManager);
+    const isAuth = await kindeClient.isAuthenticated(sessionManager(c));
 
     if (!isAuth) {
       return c.json({ error: "login required" }, 401);
     }
-    const user = await kindeClient.getUserProfile(sessionManager);
+    const user = await kindeClient.getUserProfile(sessionManager(c));
     c.set("user", user);
     await next();
   } catch (e) {

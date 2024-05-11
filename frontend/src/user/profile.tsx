@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,29 +6,34 @@ import {
   CardHeader,
   CardTitle,
 } from "../@/components/ui/card";
-import { useAuth } from "../auth/AuthProvider";
+import { UserContextInfo, useAuth } from "../auth/AuthProvider";
 
 function Profile() {
   const authContext = useAuth();
-  console.log(authContext)
+  const [user, setUser] = useState<UserContextInfo>();
+  useEffect(() => {
+    async function fetchData() {
+      const loggedInUser = await authContext?.getUser();
+      setUser(loggedInUser);
+    }
+    fetchData();
+  }, []);
+  console.log("PROF");
 
-  function profileCard() {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Profile Info</CardTitle>
-          {/* <CardDescription>Card Description</CardDescription> */}
-        </CardHeader>
-        <CardContent>
-          <p>Email: {authContext?.user?.email}</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
-    );
-  }
-  return <div>Profile{authContext?.user !== undefined && profileCard()}</div>;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Profile Info</CardTitle>
+        {/* <CardDescription>Card Description</CardDescription> */}
+      </CardHeader>
+      <CardContent>
+        <p>Email: {user?.email}</p>
+      </CardContent>
+      <CardFooter>
+        <p>Card Footer</p>
+      </CardFooter>
+    </Card>
+  );
 }
 
 export default Profile;
