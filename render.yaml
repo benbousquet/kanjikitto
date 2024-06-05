@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: nextserver
+    runtime: docker
+    dockerfilePath: ./frontend/dockerfile
+    envVars:
+    - key: PORT
+      value: 80
+  - type: web
+    name: ml-api
+    runtime: docker
+    dockerfilePath: ./ml-api/dockerfile
+    envVars:
+    - key: PORT
+      value: 3001

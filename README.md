@@ -1,8 +1,6 @@
 # KanjiKit Frontend
 
-Check it out here: [https://kanji-kit.vercel.app/]
-
-Planned features: [https://trello.com/b/WV48B4hf/kanji-kit]
+Check it out here: [https://www.kanjikitto.com/]
 
 ## Run locally
 
