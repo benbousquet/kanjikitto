@@ -4,15 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   ArrowRight,
-  BoxSelect,
   Check,
-  ChevronDown,
-  CircleHelp,
   Eraser,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { AnswerDisplay } from "./answerDisplay";
-import Image from "next/image";
 
 type LetterInfo = {
   letter: string;
@@ -118,10 +113,9 @@ export default function KanjiDrawing({
               <div className="w-16 h-16 bg-white flex justify-center items-center"></div>
             </div>
           ) : (
-            <div>
+            <div key={i}>
               <img
                 src={letterObj.dataURI}
-                key={i}
                 className={"w-16 pb-1 " + calculateBorderStyle(letterObj, i)}
                 onMouseDown={() => correctAnswer(i)}
               ></img>
