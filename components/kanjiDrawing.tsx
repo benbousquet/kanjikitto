@@ -67,7 +67,8 @@ export default function KanjiDrawing({
       </div>
       <Separator />
       <div>
-        <h1 className="text-4xl font-extrabold text-center py-5">{hiragana}</h1>
+        <h4 className="text-lg text-center pt-5">Write the Hiragana as Kanji!</h4>
+        <h1 className="text-4xl font-extrabold text-center pb-5">{hiragana}</h1>
       </div>
 
       <div className="flex flex-row flex-wrap space-x-4 justify-center py-4">
