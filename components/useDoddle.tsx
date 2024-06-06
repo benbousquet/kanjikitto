@@ -44,7 +44,7 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     canvas.width = canvasSide;
     canvas.height = canvasSide;
 
-    const lineWidth = 5;
+    const lineWidth = 8;
 
     ctx!.beginPath();
     ctx!.rect(-5, -5, canvasSide + 10, canvasSide + 10);

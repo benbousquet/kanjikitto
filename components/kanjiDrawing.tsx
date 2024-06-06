@@ -2,7 +2,13 @@
 import useDoodle from "./useDoddle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Check, Eraser } from "lucide-react";
+import {
+  BoxSelect,
+  Check,
+  ChevronDown,
+  CircleHelp,
+  Eraser,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 type LetterInfo = {
@@ -66,21 +72,25 @@ export default function KanjiDrawing({
 
       <div className="flex flex-row flex-wrap space-x-4 justify-center py-4">
         {letters?.map((letterObj, i) => {
-          return (
-            <img
-              src={
-                letterObj.dataURI !== undefined
-                  ? letterObj.dataURI
-                  : "https://placehold.co/64"
+          return letterObj.dataURI === undefined ? (
+            <div
+              className={
+                "border-solid border-4" + calculateBorderStyle(letterObj, i)
               }
+              key={i}
+            >
+              <div className="w-16 h-16 bg-white flex justify-center items-center"></div>
+            </div>
+          ) : (
+            <img
+              src={letterObj.dataURI}
               key={i}
               className={"w-16 " + calculateBorderStyle(letterObj, i)}
             ></img>
           );
         })}
       </div>
-
-      <canvas id="doodleCanvas" className="border-2 m-4"></canvas>
+      <canvas id="doodleCanvas" className="border-4 m-4"></canvas>
       <div className="flex flex-row [&>button]:mx-2 py-2 justify-evenly">
         <Button className="rounded-full" size="lg" onMouseDown={clear}>
           <Eraser />

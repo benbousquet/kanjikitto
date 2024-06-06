@@ -1,2 +1,2 @@
-ML_API_URL=localhost:3000
-DEV=true
+ML_API_URL=https://website.com
+DEV=false
