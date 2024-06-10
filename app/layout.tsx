@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Kanji Kitto",
@@ -26,6 +27,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        <Navbar />
         {children}
       </body>
     </html>

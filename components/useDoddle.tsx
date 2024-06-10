@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { isDataView } from "util/types";
+import { ReviewItem } from "./types";
 
-export default function useDoodle(): [() => void, () => void, () => string] {
+export default function useDoodle(reviewItem: ReviewItem): [() => void, () => void, () => string] {
   let isDrawing = false;
   function undo() {
     console.log("undo");
@@ -11,6 +11,7 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     const canvas: HTMLCanvasElement = document.getElementById(
       "doodleCanvas"
     ) as HTMLCanvasElement;
+    console.log(canvas)
     const ctx = canvas.getContext("2d");
     ctx!.beginPath();
     ctx!.clearRect(0, 0, canvas.width, canvas.height);
@@ -109,7 +110,7 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     return () => {
       // canvas.removeEventListener()
     };
-  }, []);
+  }, [reviewItem]);
 
   return [undo, clear, getImg];
 }

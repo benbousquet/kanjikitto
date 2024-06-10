@@ -2,12 +2,9 @@
 import useDoodle from "./useDoddle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  ArrowRight,
-  Check,
-  Eraser,
-} from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Check, Eraser } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { ReviewItem } from "./types";
 
 type LetterInfo = {
   letter: string;
@@ -18,14 +15,17 @@ type LetterInfo = {
 
 export default function KanjiDrawing({
   word,
+  nextItem,
 }: {
-  word: { hiragana: string; kanji: string };
+  word: ReviewItem;
+  nextItem: (() => void) | null;
 }) {
-  const { hiragana, kanji } = word;
+  const { hiragana, kanji, meaning } = word;
 
-  const [undo, clear, getImg] = useDoodle();
+  const [undo, clear, getImg] = useDoodle(word);
   const [letters, setLetters] = useState<LetterInfo[]>([]);
   const [currLetter, setCurrLetter] = useState<number>(0);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     let baseAnswerObj: LetterInfo[] = [];
@@ -38,7 +38,7 @@ export default function KanjiDrawing({
       });
     });
     setLetters(baseAnswerObj);
-  }, []);
+  }, [word]);
 
   function calculateBorderStyle(letterObj: LetterInfo, i: number): string {
     if (i === currLetter) {
@@ -86,19 +86,49 @@ export default function KanjiDrawing({
     setLetters(newLettersArr);
   }
 
+  function clearReviewData() {
+    setCurrLetter(0);
+    setLetters([]);
+    clear();
+  }
+
+  function endScreen() {
+    if (nextItem) {
+      return (
+        <Button className="rounded-full" size="lg">
+          <p
+            className="text-xl"
+            onClick={() => {
+              nextItem();
+              clear();
+              clearReviewData();
+            }}
+          >
+            Next Word
+          </p>
+          <ArrowRight />
+        </Button>
+      );
+    }
+    const score = letters.reduce((acc, letter) => {
+      if (letter.letter === letter.predictions[0]) {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+    return <h4 className="text-3xl">You scored {score}/{letters.length} for this Kanji!</h4>;
+  }
+
   return (
-    <div className="flex flex-col">
-      <div>
-        <p className="text-xl text-right pr-4 font-bold">5 Left</p>
-      </div>
-      <Separator />
+    <>
       <div>
         <h4 className="text-lg text-center pt-5">
           {isDone()
             ? "Tap on boxes to correct incorrectly marked answers."
             : "Write the Hiragana as Kanji!"}
         </h4>
-        <h1 className="text-4xl font-extrabold text-center pb-5">{hiragana}</h1>
+        <h1 className="text-4xl font-extrabold text-center py-5">{hiragana}</h1>
+        <h2 className="text-xl text-center">"{meaning}"</h2>
       </div>
 
       <div className="flex flex-row flex-wrap space-x-4 justify-center py-4">
@@ -126,21 +156,20 @@ export default function KanjiDrawing({
           );
         })}
       </div>
-      {isDone() ? (
+      {isDone() && (
         <div className="mt-16 mb-10">
-          <Separator className="mb-5" />
+          {/* <Separator className="mb-5" /> */}
           <h4 className="text-2xl text-center">Correct Answer</h4>
           <h1 className="text-5xl font-extrabold text-center">{kanji}</h1>
         </div>
-      ) : (
-          <canvas id="doodleCanvas" className="border-4 my-4 max-w-xl mx-auto"></canvas>
       )}
+      <canvas
+        id="doodleCanvas"
+        className={"border-4 my-4 max-w-xl mx-auto " + (isDone() && "hidden")}
+      ></canvas>
       <div className="flex flex-row [&>button]:mx-2 py-2 justify-evenly">
         {isDone() ? (
-          <Button className="rounded-full" size="lg">
-            <p className="text-xl">Next Word</p>
-            <ArrowRight />
-          </Button>
+          endScreen()
         ) : (
           <div className="[&>button:first-child]:mr-28">
             <Button className="rounded-full" size="lg" onMouseDown={clear}>
@@ -169,6 +198,6 @@ export default function KanjiDrawing({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
