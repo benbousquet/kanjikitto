@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { isDataView } from "util/types";
 
 export default function useDoodle(): [() => void, () => void, () => string] {
-  const [lines, setLines] = useState([]);
-
+  let isDrawing = false;
   function undo() {
     console.log("undo");
   }
@@ -38,7 +38,8 @@ export default function useDoodle(): [() => void, () => void, () => string] {
 
     const ctx = canvas.getContext("2d");
 
-    const dim = Math.min(400, window.innerWidth);
+    // bit odd but 20 is for the border
+    const dim = Math.min(400, window.innerWidth - 20);
     const canvasSide = dim - 4;
 
     canvas.width = canvasSide;
@@ -52,7 +53,7 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     ctx!.fill();
     ctx!.closePath();
 
-    function getCoords(e: TouchEvent) {
+    function getTouchCoords(e: TouchEvent) {
       // get offset
       const rect = canvas.getBoundingClientRect();
       return {
@@ -64,15 +65,15 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     // touch events
     canvas.addEventListener("touchstart", (e) => {
       e.preventDefault();
-      const { x, y } = getCoords(e);
-      ctx?.beginPath;
+      const { x, y } = getTouchCoords(e);
+      ctx?.beginPath();
       ctx?.moveTo(x, y);
     });
 
     canvas.addEventListener("touchmove", (e) => {
       ctx!.lineWidth = lineWidth;
       ctx!.lineCap = "round";
-      const { x, y } = getCoords(e);
+      const { x, y } = getTouchCoords(e);
       ctx?.lineTo(x, y);
       ctx?.stroke();
     });
@@ -80,6 +81,30 @@ export default function useDoodle(): [() => void, () => void, () => string] {
     canvas.addEventListener("touchend", (e) => {
       // ctx?.closePath();
     });
+
+    // mouse events
+    canvas.addEventListener("mousedown", (e) => {
+      ctx?.beginPath();
+      ctx?.moveTo(e.offsetX, e.offsetY)
+
+      isDrawing = true;
+    })
+
+    canvas.addEventListener("mouseup", (e) => {
+      ctx?.closePath();
+      isDrawing = false;
+    })
+
+    canvas.addEventListener("mousemove", (e) => {
+      if(!isDrawing) {
+        return
+      }
+      ctx?.lineTo(e.offsetX, e.offsetY);
+      ctx?.stroke();
+      ctx!.lineWidth = lineWidth;
+      ctx!.lineCap = "round";
+
+    })
 
     return () => {
       // canvas.removeEventListener()

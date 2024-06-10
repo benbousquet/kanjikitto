@@ -133,7 +133,7 @@ export default function KanjiDrawing({
           <h1 className="text-5xl font-extrabold text-center">{kanji}</h1>
         </div>
       ) : (
-        <canvas id="doodleCanvas" className="border-4 m-4"></canvas>
+          <canvas id="doodleCanvas" className="border-4 my-4 max-w-xl mx-auto"></canvas>
       )}
       <div className="flex flex-row [&>button]:mx-2 py-2 justify-evenly">
         {isDone() ? (
@@ -142,7 +142,7 @@ export default function KanjiDrawing({
             <ArrowRight />
           </Button>
         ) : (
-          <>
+          <div className="[&>button:first-child]:mr-28">
             <Button className="rounded-full" size="lg" onMouseDown={clear}>
               <Eraser />
             </Button>
@@ -166,7 +166,7 @@ export default function KanjiDrawing({
             >
               <Check />
             </Button>
-          </>
+          </div>
         )}
       </div>
     </div>
