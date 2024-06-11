@@ -9,7 +9,7 @@ export default function Home() {
   };
   return (
     <main>
-      <div className="flex flex-col max-w-fit">
+      <div className="flex flex-col">
         <h1 className="text-5xl text-center font-extrabold py-5 flex-wrap">
           Start learning Kanji through writing!
         </h1>
