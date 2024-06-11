@@ -18,7 +18,7 @@ export default function KanjiReview({
   }
 
   return (
-    <div className="flex flex-col max-w-4xl mx-auto">
+    <div className="flex flex-col mx-auto">
       <div>
         <p className="text-xl text-right pr-4 font-bold">{reviewData.length - currentItemIdx} Left</p>
       </div>

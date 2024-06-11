@@ -19,9 +19,6 @@ const config = {
       },
     },
     extend: {
-      animation: {
-        wiggle: 'wiggle 1s ease-in-out infinite',
-      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
