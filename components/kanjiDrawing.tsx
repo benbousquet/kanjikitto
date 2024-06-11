@@ -120,7 +120,7 @@ export default function KanjiDrawing({
 
   function showHint() {
     return (
-        <p className="text-center text-xl">Hint: draw "{letters[currLetter]?.letter}"</p>
+        <p className="text-center text-xl">Hint: draw {letters[currLetter]?.letter}</p>
     )
   }
 
@@ -133,7 +133,7 @@ export default function KanjiDrawing({
             : "Write the Hiragana as Kanji!"}
         </h4>
         <h1 className="text-4xl font-extrabold text-center py-5">{hiragana}</h1>
-        <h2 className="text-xl text-center">It means "{meaning}"</h2>
+        <h2 className="text-xl text-center">It means {meaning}</h2>
       </div>
 
       <div className="flex flex-row flex-wrap space-x-4 justify-center py-4">
