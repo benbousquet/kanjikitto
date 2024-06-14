@@ -4,24 +4,16 @@ Check it out here: [https://www.kanjikitto.com/]
 
 ## Run locally
 
-```git clone git@github.com:benbousquet/kanji-kit.git```
+```git clone git@github.com:benbousquet/kanjikitto.git```
 
 ## Run frontend
 
-```cd kanji-kit/frontend```
+```cd kanjikitto```
 
 ```npm install```
 
 ```npm run dev```
 
-## Run API
+## ML api
 
-```cd kanji-kit/api```
-
-```bun install```
-
-### rename .env and fill in
-
-```bun migrate.ts```
-
-```bun run dev```
+This api is contained in a different project please check it out to see how to run it
