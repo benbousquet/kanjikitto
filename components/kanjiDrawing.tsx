@@ -1,6 +1,5 @@
 "use client";
 import useDoodle from "./useDoddle";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Eraser } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { ReviewItem } from "./types";
@@ -94,7 +93,7 @@ export default function KanjiDrawing({
   function endScreen() {
     if (nextItem) {
       return (
-        <Button className="rounded-full" size="lg">
+        <button className="btn">
           <p
             className="text-xl"
             onClick={() => {
@@ -106,7 +105,7 @@ export default function KanjiDrawing({
             Next Word
           </p>
           <ArrowRight />
-        </Button>
+        </button>
       );
     }
     const score = letters.reduce((acc, letter) => {
@@ -171,19 +170,18 @@ export default function KanjiDrawing({
       {(!nextItem && !isDone()) && showHint()}
       <canvas
         id="doodleCanvas"
-        className={"border-4 my-4 max-w-xl mx-auto " + (isDone() && "hidden")}
+        className={"border-4 my-4 lg:max-w-xl max-w-fit mx-auto " + (isDone() && "hidden")}
       ></canvas>
       <div className="flex flex-row [&>button]:mx-2 py-2 justify-evenly">
         {isDone() ? (
           endScreen()
         ) : (
           <div className="[&>button:first-child]:mr-28">
-            <Button className="rounded-full" size="lg" onMouseDown={clear}>
+            <button className="btn" onMouseDown={clear}>
               <Eraser />
-            </Button>
-            <Button
-              className="rounded-full"
-              size="lg"
+            </button>
+            <button
+              className="btn"
               onMouseDown={async () => {
                 const classify = await fetch("/api/classify", {
                   method: "POST",
@@ -200,7 +198,7 @@ export default function KanjiDrawing({
               }}
             >
               <Check />
-            </Button>
+            </button>
           </div>
         )}
       </div>

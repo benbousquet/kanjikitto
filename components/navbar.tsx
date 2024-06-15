@@ -2,10 +2,14 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="border-b-2 border-b-gray-100 h-12 flex justify-center">
-      <div className="flex flex-row items-center max-w-5xl h-full">
-        <h2 className="font-extrabold text-xl mr-6">Kanji Kitto</h2>
-        <ul className="flex items-center space-x-6">
+    <div className="lg:max-w-7xl max-w-fit mx-auto navbar bg-base-100">
+      <div className="flex-1">
+        <Link className="btn btn-ghost text-xl" href="/">
+          Kanji Kitto
+        </Link>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
           <li>
             <Link href="/">Home</Link>
           </li>

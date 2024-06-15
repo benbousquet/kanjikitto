@@ -14,7 +14,7 @@ export default function Home() {
           Start learning Kanji through writing!
         </h1>
         <h2 className="text-3xl text-center">
-          <span className="bg-yellow-100">Try it out below</span>
+          <span className="bg-yellow-700">Try it out below</span>
         </h2>
         <div className="flex flex-row justify-center animate-bounce">
           <ArrowDown />
