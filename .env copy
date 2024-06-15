@@ -1,2 +1,3 @@
 ML_API_URL=https://website.com
 DEV=false
+DATABASE_URL=POSTGRES_URL_STR_HERE
