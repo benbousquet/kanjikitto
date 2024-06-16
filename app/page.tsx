@@ -55,14 +55,14 @@ export default async function Home() {
           <div className="flex flex-row justify-center h-5 items-center">
             <ArrowDown />
           </div> */}
-          <div className="stack">
-            <div className="rounded-md bg-neutral p-5">
+          <div className="stack [&>div]:rounded-2xl [&>div]:bg-neutral [&>div]:p-5">
+            <div>
               <KanjiDrawing word={exampleItem} nextItem={null} />
             </div>
-            <div className="rounded-md bg-neutral p-5">
+            <div>
               <KanjiDrawing word={exampleItem} nextItem={null} />
             </div>
-            <div className="rounded-md bg-neutral p-5">
+            <div>
               <KanjiDrawing word={exampleItem} nextItem={null} />
             </div>
           </div>
