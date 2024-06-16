@@ -19,7 +19,7 @@ export default async function Navbar() {
           {session ? (
             <>
               <li>
-                <Link href="/">Dashboard</Link>
+                <Link href="/dashboard">Dashboard</Link>
               </li>
               <li>
                 <Link href="/api/auth/signout">Sign Out</Link>
