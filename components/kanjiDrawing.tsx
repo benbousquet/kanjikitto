@@ -162,7 +162,6 @@ export default function KanjiDrawing({
       </div>
       {isDone() && (
         <div className="mt-16 mb-10">
-          {/* <Separator className="mb-5" /> */}
           <h4 className="text-2xl text-center">Correct Answer</h4>
           <h1 className="text-5xl font-extrabold text-center">{kanji}</h1>
         </div>
