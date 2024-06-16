@@ -169,7 +169,7 @@ export default function KanjiDrawing({
       {(!nextItem && !isDone()) && showHint()}
       <canvas
         id="doodleCanvas"
-        className={"border-4 my-4 lg:max-w-xl max-w-fit mx-auto " + (isDone() && "hidden")}
+        className={"border-4 my-4 rounded-xl lg:max-w-xl max-w-fit mx-auto " + (isDone() && "hidden")}
       ></canvas>
       <div className="flex flex-row [&>button]:mx-2 py-2 justify-evenly">
         {isDone() ? (

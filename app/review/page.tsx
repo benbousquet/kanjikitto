@@ -1,4 +1,4 @@
-import KanjiReview from "@/components/kanjiReview";
+import KanjiReview from "./_components/kanjiReview";
 import { ReviewItem } from "@/components/types";
 
 export default function Review() {
@@ -7,10 +7,12 @@ export default function Review() {
     { hiragana: "にち", kanji: "日", meaning: "Sun" },
     { hiragana: "かいしゃ", kanji: "会社", meaning: "Company" },
     { hiragana: "さくぶん", kanji: "作文", meaning: "An essay; Composition" },
-  ]
+  ];
   return (
     <main>
-      <KanjiReview reviewData={reviewData} />
+      <div className="lg:flex-row max-w-fit lg:max-w-7xl mx-auto py-8 lg:py-24">
+        <KanjiReview reviewData={reviewData} />
+      </div>
     </main>
   );
 }

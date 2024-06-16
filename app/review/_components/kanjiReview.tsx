@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import KanjiDrawing from "./kanjiDrawing";
-import { ReviewItem } from "./types";
+import KanjiDrawing from "@/components/kanjiDrawing";
+import { ReviewItem } from "@/components/types";
 
 export default function KanjiReview({
   reviewData,
