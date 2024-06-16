@@ -23,32 +23,49 @@ export default async function Home() {
             learn Kanji through writing with automatic feedback from AI!
           </p>
           <div className="my-5 lg:my-14">
-            <Link href={session ? "/dashboard" : "/api/auth/signin"} passHref={true}>
-            <button className="btn btn-primary btn-wide">
-              <GraduationCap />
-              Start learning
-            </button>
+            <Link
+              href={session ? "/dashboard" : "/api/auth/signin"}
+              passHref={true}
+            >
+              <button className="btn btn-primary btn-wide">
+                <GraduationCap />
+                Start learning
+              </button>
             </Link>
           </div>
-          <div className="divider"></div> 
+          <div className="divider"></div>
           <p className="text-xl leading-relaxed py-2 px-3 lg:px-0">
-            This project is open-source, if you are interested in contributing please checkout the projects GitHub.
+            This project is open-source, if you are interested in contributing
+            please checkout the projects GitHub.
           </p>
           <div className="my-5 lg:my-14">
-            <Link href="https://github.com/benbousquet/kanjikitto" passHref={true}>
-            <button className="btn btn-primary btn-wide" >
-              <Github />
-              GitHub
-            </button>
+            <Link
+              href="https://github.com/benbousquet/kanjikitto"
+              passHref={true}
+            >
+              <button className="btn btn-primary btn-wide">
+                <Github />
+                GitHub
+              </button>
             </Link>
           </div>
         </div>
         <div className="snap-center">
-          <h2 className="text-3xl text-center">Try it out</h2>
+          {/* <h2 className="text-3xl text-center">Try it out</h2>
           <div className="flex flex-row justify-center h-5 items-center">
             <ArrowDown />
+          </div> */}
+          <div className="stack">
+            <div className="rounded-md bg-neutral p-5">
+              <KanjiDrawing word={exampleItem} nextItem={null} />
+            </div>
+            <div className="rounded-md bg-neutral p-5">
+              <KanjiDrawing word={exampleItem} nextItem={null} />
+            </div>
+            <div className="rounded-md bg-neutral p-5">
+              <KanjiDrawing word={exampleItem} nextItem={null} />
+            </div>
           </div>
-          <KanjiDrawing word={exampleItem} nextItem={null} />
         </div>
       </div>
     </main>
