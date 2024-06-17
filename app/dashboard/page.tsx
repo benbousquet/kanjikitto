@@ -4,7 +4,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col lg:max-w-7xl mx-auto py-8 lg:py-24">
       <div className="flex flex-col space-y-5 lg:space-y-0 lg:flex-row items-center lg:space-x-28">
-        <h1 className="text-6xl">Dashboard</h1>
+        <h1 className="text-4xl lg:text-6xl">Dashboard</h1>
         <label className="input input-bordered flex items-center gap-2 flex-grow">
           <input type="text" className="grow" placeholder="Search for deck" />
           <Search />
