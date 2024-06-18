@@ -2,6 +2,7 @@
 
 import { X } from "lucide-react";
 import { useState } from "react";
+import { deckFormSchema } from "@/lib/deckForm";
 
 type CardForm = {
   kanji: string;
@@ -34,6 +35,21 @@ export default function CreateForm() {
       return false;
     });
     setCards(temp);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+      const validatedDeck = deckFormSchema.parse({name, description, cards})
+
+      await fetch("/api/deck/create", {
+        method: "POST",
+        body: JSON.stringify(validatedDeck)
+      })
+    } catch(err: any) {
+
+    }
   }
 
   function CardItem(index: number) {
@@ -108,7 +124,7 @@ export default function CreateForm() {
   }
 
   return (
-    <div className="lg:w-full">
+    <form onSubmit={handleSubmit} className="lg:w-full">
       <div className="flex flex-col items-end space-y-3">
         <label className="form-control w-full">
           <div className="label">
@@ -137,7 +153,7 @@ export default function CreateForm() {
             }}
           ></textarea>
         </label>
-        <button className="btn btn-success w-fit">Create</button>
+        <button className="btn btn-success w-fit" type="submit">Create</button>
       </div>
       <div className="divider"></div>
       <div className="flex flex-col items-center space-y-3">
@@ -158,6 +174,6 @@ export default function CreateForm() {
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

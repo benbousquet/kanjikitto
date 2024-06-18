@@ -28,7 +28,7 @@ model Deck {
 model Card {
   id         Int     @id @default(autoincrement())
   hiragana   String
-  word       String
+  kanji      String
   definition String?
   deck       Deck    @relation(fields: [deckId], references: [id])
   deckId     Int
