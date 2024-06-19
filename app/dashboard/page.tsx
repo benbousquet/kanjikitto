@@ -1,4 +1,5 @@
 import { BarChartBig, Bookmark, History, Info, Search } from "lucide-react";
+import CreateButton from "./_components/createButton";
 
 export default function Dashboard() {
   return (
@@ -9,6 +10,7 @@ export default function Dashboard() {
           <input type="text" className="grow" placeholder="Search for deck" />
           <Search />
         </label>
+        <CreateButton />
       </div>
       <div className="divider"></div>
       <div className="flex flex-col lg:flex-row [&>div]:flex-grow [&>div]:bg-neutral [&>div]:h-96 [&>div]:lg:h-full [&>div]:rounded-lg [&>div]:space-y-2 space-y-10 lg:space-x-10 lg:space-y-0 ">

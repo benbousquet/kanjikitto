@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import db from "@/lib/db";
-import { deckFormSchema } from "@/lib/deckForm";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,10 +8,10 @@ export async function POST(request: Request) {
   if (!session?.user)
     return Response.json({ error: "Not Authorized" }, { status: 401 });
 
-  const requestJSON = await request.json();
+  // const requestJSON = await request.json();
 
   try {
-    const { name, description, cards } = deckFormSchema.parse(requestJSON);
+    // const { name, description, cards } = deckFormSchema.parse(requestJSON);
 
     const user = await db.user.update({
       where: {
@@ -21,8 +20,8 @@ export async function POST(request: Request) {
       data: {
         decks: {
           create: {
-            title: name,
-            description: description,
+            title: "My New Deck",
+            description: "This is a cool description!",
           },
         },
       },
@@ -31,28 +30,28 @@ export async function POST(request: Request) {
       },
     });
 
-    // So bad :(
-    let maxId = -1;
+    // // So bad :(
+    // let maxId = -1;
 
-    await user.decks.forEach((deck) => {
-      if (deck.id > maxId) maxId = deck.id;
-    });
+    // await user.decks.forEach((deck) => {
+    //   if (deck.id > maxId) maxId = deck.id;
+    // });
 
-    const deck = await db.deck.update({
-      where: {
-        id: maxId,
-      },
-      data: {
-        cards: {
-          create: cards,
-        },
-      },
-      include: {
-        cards: true,
-      },
-    });
+    // const deck = await db.deck.update({
+    //   where: {
+    //     id: maxId,
+    //   },
+    //   data: {
+    //     cards: {
+    //       create: cards,
+    //     },
+    //   },
+    //   include: {
+    //     cards: true,
+    //   },
+    // });
 
-    return Response.json({ deck }, { status: 200 });
+    return Response.json({ user }, { status: 200 });
   } catch (err: any) {
     return new NextResponse("Request JSON Invalid");
   }

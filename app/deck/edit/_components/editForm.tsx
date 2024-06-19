@@ -1,21 +1,34 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deckFormSchema } from "@/lib/deckForm";
+import { Card, Deck, Prisma } from "@prisma/client";
 
 type CardForm = {
   kanji: string;
   hiragana: string;
-  meaning: string;
+  definition: string | null;
 };
 
-export default function CreateForm() {
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+export default function EditForm({
+  deck,
+}: {
+  deck: Prisma.DeckGetPayload<{ include: { cards: true } }>;
+}) {
+  const [name, setName] = useState<string>(deck.title);
+  const [description, setDescription] = useState<string>(deck.description);
   const [cards, setCards] = useState<CardForm[]>([
-    { hiragana: "", kanji: "", meaning: "" },
+    { hiragana: "", kanji: "", definition: "" },
   ]);
+
+  useEffect(() => {
+    setName(deck.title);
+    setDescription(deck.description);
+    if (deck.cards.length > 0) {
+      setCards([...deck.cards]);
+    }
+  }, []);
 
   function handleCardEdit(index: number, newValue: CardForm) {
     let temp = [...cards];
@@ -41,14 +54,24 @@ export default function CreateForm() {
     e.preventDefault();
 
     try {
-      const validatedDeck = deckFormSchema.parse({name, description, cards})
-
-      await fetch("/api/deck/create", {
+      console.log({
+        id: deck.id,
+        name,
+        description,
+        cards,
+      });
+      const validatedDeck = deckFormSchema.parse({
+        id: deck.id,
+        name,
+        description,
+        cards,
+      });
+      await fetch("/api/deck/edit", {
         method: "POST",
-        body: JSON.stringify(validatedDeck)
-      })
-    } catch(err: any) {
-
+        body: JSON.stringify(validatedDeck),
+      });
+    } catch (err: any) {
+      console.error(err);
     }
   }
 
@@ -111,10 +134,10 @@ export default function CreateForm() {
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={cards[index].meaning}
+            value={cards[index].definition || ""}
             onChange={(e) => {
               let newValue: CardForm = cards[index];
-              newValue.meaning = e.target.value;
+              newValue.definition = e.target.value;
               handleCardEdit(index, newValue);
             }}
           />
@@ -153,7 +176,9 @@ export default function CreateForm() {
             }}
           ></textarea>
         </label>
-        <button className="btn btn-success w-fit" type="submit">Create</button>
+        <button className="btn btn-success w-fit" type="submit">
+          Save
+        </button>
       </div>
       <div className="divider"></div>
       <div className="flex flex-col items-center space-y-3">
@@ -166,7 +191,7 @@ export default function CreateForm() {
             className="btn btn-primary"
             onClick={(_e) => {
               let temp = [...cards];
-              temp.push({ hiragana: "", kanji: "", meaning: "" });
+              temp.push({ hiragana: "", kanji: "", definition: "" });
               setCards(temp);
             }}
           >
