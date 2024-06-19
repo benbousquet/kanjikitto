@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
     if (!deck) {
       return Response.json(
-        { message: "Deck not accessible or found" },
+        { error: "Deck not accessible or found" },
         { status: 400 }
       );
     }
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
     if (!updatedDeck) {
       return Response.json(
-        { message: "Error when updating deck" },
+        { error: "Error when updating deck" },
         { status: 500 }
       );
     }
