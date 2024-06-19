@@ -1,19 +1,51 @@
-# KanjiKit Frontend
+# Hello, Welcome to the Kanji Kitto 🔰 GitHub
+This is a project aimed at teaching Kanji through writing.
+If you havent seen, check it out here: https://www.kanjikitto.com/
 
-Check it out here: [https://www.kanjikitto.com/]
+## Project structure
 
-## Run locally
+### Repos
+- Frontend + Client facing API (current repo)
+- Flask ML Server ([here](https://github.com/benbousquet/kanjikitto-ml-api))
 
-```git clone git@github.com:benbousquet/kanjikitto.git```
+### Technologies
+- Next.js
+- Auth.js (NextAuth)
+- TypeScript
+- Tailwind CSS
+- DaisyUI
+- Flask
+- DaKanji Single Kanji Recognition Model
+- Docker
 
-## Run frontend
+## Local Development
 
-```cd kanjikitto```
+### Website
+- clone repo
+```bash
+git clone https://github.com/benbousquet/kanjikitto && cd kanjikitto
+```
 
-```npm install```
+- update ENV variables and rename ".env copy" to ".env"
 
-```npm run dev```
+- run server
+```bash
+npm install && npm run dev
+```
 
-## ML api
+### ML api
+- clone repo
+```bash
+git clone https://github.com/benbousquet/kanjikitto-ml-api && cd kanjikitto-ml-api
+```
 
-This api is contained in a different project please check it out to see how to run it
+- install packages
+```bash
+pip3 install -r /requirements.txt
+```
+
+- run server
+```bash
+flask --app main run
+```
+
