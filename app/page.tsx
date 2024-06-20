@@ -1,15 +1,17 @@
-import { ReviewItem } from "@/components/types";
 import KanjiDrawing from "../components/kanjiDrawing";
-import { ArrowDown, Github, GraduationCap } from "lucide-react";
+import { Github, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
+import { Card } from "@prisma/client";
 export default async function Home() {
   const session = await auth();
 
-  const exampleItem: ReviewItem = {
+  const exampleItem: Card = {
+    id: 12,
     hiragana: "きょう",
     kanji: "今日",
     definition: "Today",
+    deckId: 1,
   };
   return (
     <main>
