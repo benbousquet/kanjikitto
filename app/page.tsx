@@ -9,7 +9,7 @@ export default async function Home() {
   const exampleItem: ReviewItem = {
     hiragana: "きょう",
     kanji: "今日",
-    meaning: "Today",
+    definition: "Today",
   };
   return (
     <main>

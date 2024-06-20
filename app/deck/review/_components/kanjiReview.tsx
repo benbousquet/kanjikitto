@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import KanjiDrawing from "@/components/kanjiDrawing";
-import { ReviewItem } from "@/components/types";
+import { Card } from "@prisma/client";
 
 export default function KanjiReview({
   reviewData,
 }: {
-  reviewData: ReviewItem[];
+  reviewData: Card[];
 }) {
   const [currentItemIdx, setCurrentItemIdx] = useState(0);
 

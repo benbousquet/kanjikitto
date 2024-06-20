@@ -2,7 +2,7 @@
 import useDoodle from "./useDoddle";
 import { ArrowRight, Check, Eraser } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-import { ReviewItem } from "./types";
+import { Card } from "@prisma/client";
 
 type LetterInfo = {
   letter: string;
@@ -15,10 +15,11 @@ export default function KanjiDrawing({
   word,
   nextItem,
 }: {
-  word: ReviewItem;
+  word: Card;
   nextItem: (() => void) | null;
 }) {
-  const { hiragana, kanji, meaning } = word;
+  console.log(word)
+  const { hiragana, kanji, definition} = word;
 
   const [undo, clear, getImg] = useDoodle(word);
   const [letters, setLetters] = useState<LetterInfo[]>([]);
@@ -132,7 +133,7 @@ export default function KanjiDrawing({
             : "Write the Hiragana as Kanji!"}
         </h4>
         <h1 className="text-4xl font-extrabold text-center py-5">{hiragana}</h1>
-        <h2 className="text-xl text-center">It means {meaning}</h2>
+        <h2 className="text-xl text-center">It means {definition}</h2>
       </div>
 
       <div className="flex flex-row flex-wrap space-x-4 justify-center py-4">
