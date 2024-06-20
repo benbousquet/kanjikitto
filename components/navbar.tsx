@@ -35,14 +35,17 @@ export default async function Navbar() {
                   <li>
                     <a className="justify-between">
                       Profile
-                      <span className="badge">New</span>
+                      <span className="badge">soon</span>
                     </a>
                   </li>
                   <li>
                     <Link href="/dashboard">Dashboard</Link>
                   </li>
                   <li>
-                    <a>Settings</a>
+                    <a className="justify-between">
+                      Settings
+                      <span className="badge">soon</span>
+                    </a>
                   </li>
                   <li>
                     <Link href="/api/auth/signout">Sign Out</Link>
