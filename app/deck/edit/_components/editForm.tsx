@@ -2,8 +2,8 @@
 
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { deckFormSchema } from "@/lib/deckForm";
-import { Card, Deck, Prisma } from "@prisma/client";
+import { deckFormSchema } from "@/lib/schema";
+import { Prisma } from "@prisma/client";
 
 type CardForm = {
   kanji: string;
@@ -16,14 +16,15 @@ export default function EditForm({
 }: {
   deck: Prisma.DeckGetPayload<{ include: { cards: true } }>;
 }) {
-  const [name, setName] = useState<string>(deck.title);
+  const [title, setTitle] = useState<string>(deck.title);
   const [description, setDescription] = useState<string>(deck.description);
+  const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState<CardForm[]>([
     { hiragana: "", kanji: "", definition: "" },
   ]);
 
   useEffect(() => {
-    setName(deck.title);
+    setTitle(deck.title);
     setDescription(deck.description);
     if (deck.cards.length > 0) {
       setCards([...deck.cards]);
@@ -52,27 +53,24 @@ export default function EditForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setIsLoading(true);
 
-    try {
-      console.log({
-        id: deck.id,
-        name,
-        description,
-        cards,
-      });
-      const validatedDeck = deckFormSchema.parse({
-        id: deck.id,
-        name,
-        description,
-        cards,
-      });
-      await fetch("/api/deck/edit", {
+    const validatedDeck = deckFormSchema.safeParse({
+      id: deck.id,
+      title,
+      description,
+      cards,
+    });
+    if (!validatedDeck.success) {
+      console.log(validatedDeck.error.issues);
+    } else {
+      const res = await fetch("/api/deck/edit", {
         method: "POST",
-        body: JSON.stringify(validatedDeck),
+        body: JSON.stringify(validatedDeck.data),
       });
-    } catch (err: any) {
-      console.error(err);
+      console.log(await res.body)
     }
+    setIsLoading(false);
   }
 
   function CardItem(index: number) {
@@ -157,9 +155,9 @@ export default function EditForm({
             type="text"
             placeholder="JLPT N2 Kanji"
             className="input input-bordered w-full"
-            value={name}
+            value={title}
             onChange={(e) => {
-              setName(e.target.value);
+              setTitle(e.target.value);
             }}
           />
         </label>
@@ -176,7 +174,12 @@ export default function EditForm({
             }}
           ></textarea>
         </label>
-        <button className="btn btn-success w-fit" type="submit">
+        <button
+          className={
+            "btn btn-success w-fit " + (isLoading && "loading loading-spinner")
+          }
+          type="submit"
+        >
           Save
         </button>
       </div>

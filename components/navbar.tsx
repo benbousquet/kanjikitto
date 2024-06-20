@@ -3,7 +3,6 @@ import { auth } from "@/auth";
 
 export default async function Navbar() {
   const session = await auth();
-  console.log(session);
   return (
     <div className="lg:max-w-7xl max-w-fit mx-auto navbar bg-base-100">
       <div className="flex-1">

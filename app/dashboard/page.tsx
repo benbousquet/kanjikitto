@@ -1,9 +1,8 @@
 import {
-  BarChartBig,
   Bookmark,
   CircleX,
   History,
-  Info,
+  Pencil,
   Search,
   User,
 } from "lucide-react";
@@ -11,6 +10,9 @@ import CreateButton from "./_components/createButton";
 import db from "@/lib/db";
 import { auth } from "@/auth";
 import Link from "next/link";
+import DeleteButton from "./_components/deleteButton";
+
+export const dynamic = "force-dynamic"
 
 export default async function Dashboard() {
   // repeated code maybe consolidate into component later
@@ -29,6 +31,9 @@ export default async function Dashboard() {
 
   const decks = await db.deck.findMany({
     where: { authorId: session.user?.id },
+    orderBy: {
+      updatedAt: "desc"
+    }
   });
 
   return (
@@ -110,12 +115,21 @@ export default async function Dashboard() {
                 >
                   <div className="collapse-title text-xl font-medium flex flex-row justify-between items-center">
                     {deck.title}
-                    <Link
-                      className="btn btn-primary"
-                      href={"/deck/review/" + deck.id}
-                    >
-                      Study
-                    </Link>
+                    <div className="flex flex-row items-center space-x-1">
+                      <Link
+                        className="btn btn-secondary"
+                        href={"/deck/review/" + deck.id}
+                      >
+                        Study
+                      </Link>
+                      <Link
+                        className="btn btn-accent"
+                        href={"/deck/edit/" + deck.id}
+                      >
+                        <Pencil />
+                      </Link>
+                      <DeleteButton id={deck.id} />
+                    </div>
                   </div>
                   <div className="collapse-content content-end">
                     <p>{deck.description}</p>

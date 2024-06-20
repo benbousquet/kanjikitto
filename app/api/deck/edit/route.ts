@@ -1,9 +1,10 @@
 import { auth } from "@/auth";
 import db from "@/lib/db";
-import { deckFormSchema } from "@/lib/deckForm";
+import { deckFormSchema } from "@/lib/schema";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  console.log("edit post");
   const session = await auth();
 
   if (!session?.user)
@@ -12,7 +13,14 @@ export async function POST(request: Request) {
   const requestJSON = await request.json();
 
   try {
-    const { id, name, description, cards } = deckFormSchema.parse(requestJSON);
+    // const { id, title, description, cards } = deckFormSchema.parse(requestJSON);
+    const res = deckFormSchema.safeParse(requestJSON);
+    if (!res.success) {
+      console.log(res.error.errors);
+      return Response.json({ error: "Invalid form data", errors: res.error.errors }, { status: 400 });
+    }
+
+    const {id, title, description, cards} = res.data!
 
     const deck = await db.deck.findUnique({
       where: {
@@ -41,7 +49,7 @@ export async function POST(request: Request) {
         authorId: session.user.id,
       },
       data: {
-        title: name,
+        title,
         description,
         cards: {
           create: [...cards],
