@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { ReviewItem } from "./types";
+import { Card } from "@prisma/client";
 
-export default function useDoodle(reviewItem: ReviewItem): [() => void, () => void, () => string] {
+export default function useDoodle(reviewItem: Card): [() => void, () => void, () => string] {
   let isDrawing = false;
   function undo() {
     console.log("undo");
