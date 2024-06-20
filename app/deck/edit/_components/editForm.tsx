@@ -68,7 +68,6 @@ export default function EditForm({
         method: "POST",
         body: JSON.stringify(validatedDeck.data),
       });
-      console.log(await res.body)
     }
     setIsLoading(false);
   }
@@ -175,12 +174,15 @@ export default function EditForm({
           ></textarea>
         </label>
         <button
-          className={
-            "btn btn-success w-fit " + (isLoading && "loading loading-spinner")
-          }
+          className={"btn btn-success w-fit"}
           type="submit"
+          disabled={isLoading}
         >
-          Save
+          {isLoading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            "Save"
+          )}
         </button>
       </div>
       <div className="divider"></div>

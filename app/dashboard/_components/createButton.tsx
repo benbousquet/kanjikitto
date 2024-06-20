@@ -8,7 +8,8 @@ export default function CreateButton() {
   const router = useRouter();
   return (
     <button
-      className={"btn btn-success " + (isLoading && "loading loading-spinner")}
+      className="btn btn-success"
+      disabled={isLoading}
       onClick={async (_e) => {
         setIsLoading(true);
         const res = await fetch("/api/deck/create", { method: "POST" });
@@ -16,7 +17,7 @@ export default function CreateButton() {
         router.push(`/deck/edit/${deck.id}`);
       }}
     >
-      Create
+      {isLoading ? <span className="loading loading-spinner"></span> : "Create"}
     </button>
   );
 }
