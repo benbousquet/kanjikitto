@@ -29,10 +29,17 @@ export async function POST(request: Request) {
     }
 
     // delete all cards on deck
+    await db.card.deleteMany({
+      where: {
+        deckId: id,
+      },
+    });
+    
+    // delete deck
     const deletedDeck = await db.deck.delete({
       where: {
         id: id,
-        authorId: session.user.id
+        authorId: session.user.id,
       },
     });
 
