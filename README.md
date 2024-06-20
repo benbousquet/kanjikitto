@@ -2,6 +2,10 @@
 This is a project aimed at teaching Kanji through writing.
 If you havent seen, check it out here: https://www.kanjikitto.com/
 
+## - IMPORTANT - Please read
+Please be aware that this application is still under early development and anything that 
+is inputed into the database has a chance to be deleted before the 1.0 release!
+
 ## Project structure
 
 ### Repos
@@ -18,6 +22,19 @@ If you havent seen, check it out here: https://www.kanjikitto.com/
 - DaKanji Single Kanji Recognition Model
 - Docker
 
+## Roadmap
+
+### Current Goals
+- Add settings and profile pages
+- Reword review workflow
+- Review tracking
+
+### Future Goals
+- Review Statistics
+- Bookmarking
+- Deck Ratings
+- Forking Decks
+
 ## Local Development
 
 ### Website
@@ -27,6 +44,14 @@ git clone https://github.com/benbousquet/kanjikitto && cd kanjikitto
 ```
 
 - update ENV variables and rename ".env copy" to ".env"
+```env
+ML_API_URL = ML api url ex. localhost:3000/classify
+DEV = Controls ML api url for classify route 
+DATABASE_URL = Postgresql db url string
+NEXTAUTH_SECRET = Used for next-auth
+GOOGLE_ID = Used for next-auth
+GOOGLE_SECRET = Used for next-auth
+```
 
 - run server
 ```bash
