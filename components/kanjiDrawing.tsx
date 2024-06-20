@@ -7,7 +7,7 @@ import { Card } from "@prisma/client";
 type LetterInfo = {
   letter: string;
   dataURI: string | undefined;
-  predictions: [string] | [];
+  predictions: string[] | [];
   corrected: boolean;
 };
 
@@ -18,7 +18,6 @@ export default function KanjiDrawing({
   word: Card;
   nextItem: (() => void) | null;
 }) {
-  console.log(word)
   const { hiragana, kanji, definition} = word;
 
   const [undo, clear, getImg] = useDoodle(word);
@@ -48,7 +47,7 @@ export default function KanjiDrawing({
     }
     // so jank need to find new solution
     if (letterObj.corrected) {
-      if (letterObj.letter === letterObj.predictions[0]) {
+      if (letterObj.letter === letterObj.predictions[0] || letterObj.letter === letterObj.predictions[1]) {
         return "border-solid border-b-4 border-rose-500";
       }
       return "border-solid border-b-4 border-green-500";
