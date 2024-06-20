@@ -55,7 +55,7 @@ export default async function Dashboard() {
             <History className="text-primary" />
           </div>
           <div className="space-y-2 px-1 py-1">
-            <div className="flex flex-row justify-center items-center space-x-2">
+            <div className="flex flex-row justify-center items-center space-x-2 my-4">
               <Construction />
               <h3 className="text-2xl text-center">Under Construction</h3>
             </div>
@@ -85,7 +85,7 @@ export default async function Dashboard() {
             <Bookmark className="text-primary" />
           </div>
           <div className="space-y-2 px-1 py-1">
-            <div className="flex flex-row justify-center items-center space-x-2">
+            <div className="flex flex-row justify-center items-center space-x-2 my-4">
               <Construction />
               <h3 className="text-2xl text-center">Under Construction</h3>
             </div>
