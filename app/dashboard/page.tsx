@@ -4,13 +4,13 @@ import {
   History,
   Pencil,
   Search,
+  Trash,
   User,
 } from "lucide-react";
 import CreateButton from "./_components/createButton";
 import db from "@/lib/db";
 import { auth } from "@/auth";
 import Link from "next/link";
-import DeleteButton from "./_components/deleteButton";
 
 export const dynamic = "force-dynamic"
 
@@ -128,7 +128,13 @@ export default async function Dashboard() {
                       >
                         <Pencil />
                       </Link>
-                      <DeleteButton id={deck.id} />
+                      <Link
+                        className="btn btn-error"
+                        href={"/deck/delete/" + deck.id}
+                      >
+                        <Trash />
+                      </Link>
+                      {/* <DeleteButton id={deck.id} /> */}
                     </div>
                   </div>
                   <div className="collapse-content content-end">
