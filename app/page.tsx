@@ -15,8 +15,8 @@ export default async function Home() {
   };
   return (
     <main>
-      <div className="flex flex-col lg:flex-row max-w-fit lg:max-w-7xl mx-auto py-8 lg:py-24 lg:overflow-hidden">
-        <div className="max-w-2xl text-center lg:text-left lg:mr-16 snap-center">
+      <div className="flex flex-col lg:flex-row max-w-fit lg:max-w-7xl mx-auto  lg:overflow-hidden">
+        <div className="max-w-2xl text-center lg:text-left lg:mr-16 snap-center py-8 lg:py-24">
           <h1 className="text-5xl font-extrabold tracking-tight py-5 flex-wrap">
             Learn Kanji 漢字 through writing!
           </h1>
@@ -52,7 +52,7 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-        <div className="snap-center">
+        <div className="snap-center m-auto">
           {/* <h2 className="text-3xl text-center">Try it out</h2>
           <div className="flex flex-row justify-center h-5 items-center">
             <ArrowDown />
