@@ -1,6 +1,7 @@
 import {
   Bookmark,
   CircleX,
+  Construction,
   History,
   Pencil,
   Search,
@@ -12,7 +13,7 @@ import db from "@/lib/db";
 import { auth } from "@/auth";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
   // repeated code maybe consolidate into component later
@@ -32,8 +33,8 @@ export default async function Dashboard() {
   const decks = await db.deck.findMany({
     where: { authorId: session.user?.id },
     orderBy: {
-      updatedAt: "desc"
-    }
+      updatedAt: "desc",
+    },
   });
 
   return (
@@ -54,7 +55,11 @@ export default async function Dashboard() {
             <History className="text-primary" />
           </div>
           <div className="space-y-2 px-1 py-1">
-            <div tabIndex={0} className="collapse bg-base-200">
+            <div className="flex flex-row justify-center items-center space-x-2">
+              <Construction />
+              <h3 className="text-2xl text-center">Under Construction</h3>
+            </div>
+            {/* <div tabIndex={0} className="collapse bg-base-200">
               <div className="collapse-title text-xl font-medium">
                 Genki 2 Vocab
               </div>
@@ -71,7 +76,7 @@ export default async function Dashboard() {
                 <p>Contains all the vocab for JLPT N2</p>
                 <button className="btn btn-primary">Study</button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div>
@@ -80,7 +85,11 @@ export default async function Dashboard() {
             <Bookmark className="text-primary" />
           </div>
           <div className="space-y-2 px-1 py-1">
-            <div tabIndex={0} className="collapse bg-base-200">
+            <div className="flex flex-row justify-center items-center space-x-2">
+              <Construction />
+              <h3 className="text-2xl text-center">Under Construction</h3>
+            </div>
+            {/* <div tabIndex={0} className="collapse bg-base-200">
               <div className="collapse-title text-xl font-medium">
                 Genki 2 Vocab
               </div>
@@ -97,7 +106,7 @@ export default async function Dashboard() {
                 <p>Contains all the vocab for JLPT N2</p>
                 <button className="btn btn-primary">Study</button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div>
