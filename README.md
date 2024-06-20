@@ -1,4 +1,4 @@
-# Hello, Welcome to the Kanji Kitto 🔰 GitHub
+# Hello 👋 Welcome to the Kanji Kitto 🔰 GitHub
 This is a project aimed at teaching Kanji through writing.
 If you havent seen, check it out here: https://www.kanjikitto.com/
 
