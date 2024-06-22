@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ imgDataURL }),
+    body: JSON.stringify({ imgDataURL, key: process.env.SECRET_KEY }),
   });
 
   const results = await classify.json();
