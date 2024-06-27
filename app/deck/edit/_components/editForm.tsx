@@ -104,7 +104,6 @@ export default function EditForm({
               className="input input-bordered w-full max-w-xs"
               value={cards[index].hiragana}
               onChange={(e) => {
-                
                 let newValue: CardForm = cards[index];
                 newValue.hiragana = e.target.value;
                 handleCardEdit(index, newValue);
@@ -151,8 +150,8 @@ export default function EditForm({
   return (
     <div>
       {errors.length > 0 &&
-        errors.map((error) => {
-          return <FormError error={error} />;
+        errors.map((error, i) => {
+          return <FormError key={i} error={error} />;
         })}
       <div className="lg:w-full">
         <div className="flex flex-col items-end space-y-3">
