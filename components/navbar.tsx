@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 
 export default async function Navbar() {
   const session = await auth();
-  console.log(session?.user?.image);
   return (
     <div className="lg:max-w-7xl max-w-fit mx-auto navbar bg-base-100">
       <div className="flex-1">
@@ -48,14 +47,23 @@ export default async function Navbar() {
                     </a>
                   </li>
                   <li>
-                    <Link href="/api/auth/signout">Sign Out</Link>
+                    {/* <Link href="/api/auth/signout">Sign Out</Link> */}
+                    <form
+                      action={async (formData) => {
+                        "use server";
+                        await signOut();
+                        
+                      }}
+                    >
+                      <button type="submit">Sign Out</button>
+                    </form>
                   </li>
                 </ul>
               </div>
             </>
           ) : (
             <li>
-              <Link href="/api/auth/signin">Login</Link>
+              <Link href="/api/auth/signin">Google Login</Link>
             </li>
           )}
         </ul>
