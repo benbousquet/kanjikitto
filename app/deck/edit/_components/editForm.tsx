@@ -54,8 +54,8 @@ export default function EditForm({
     setCards(temp);
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  // this any is not good :(
+  async function handleSubmit(_e: any) {
     setErrors([]);
     setIsLoading(true);
 
@@ -104,6 +104,7 @@ export default function EditForm({
               className="input input-bordered w-full max-w-xs"
               value={cards[index].hiragana}
               onChange={(e) => {
+                
                 let newValue: CardForm = cards[index];
                 newValue.hiragana = e.target.value;
                 handleCardEdit(index, newValue);
@@ -153,7 +154,7 @@ export default function EditForm({
         errors.map((error) => {
           return <FormError error={error} />;
         })}
-      <form onSubmit={handleSubmit} className="lg:w-full">
+      <div className="lg:w-full">
         <div className="flex flex-col items-end space-y-3">
           <label className="form-control w-full">
             <div className="label">
@@ -186,6 +187,7 @@ export default function EditForm({
             className={"btn btn-success w-fit"}
             type="submit"
             disabled={isLoading}
+            onClick={handleSubmit}
           >
             {isLoading ? (
               <span className="loading loading-spinner"></span>
@@ -214,7 +216,7 @@ export default function EditForm({
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
