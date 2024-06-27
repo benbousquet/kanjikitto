@@ -4,6 +4,8 @@ import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { deckFormSchema } from "@/lib/schema";
 import { Prisma } from "@prisma/client";
+import { ZodError } from "zod";
+import FormError from "./formError";
 
 type CardForm = {
   kanji: string;
@@ -16,6 +18,7 @@ export default function EditForm({
 }: {
   deck: Prisma.DeckGetPayload<{ include: { cards: true } }>;
 }) {
+  const [errors, setErrors] = useState<ZodError["issues"]>([]);
   const [title, setTitle] = useState<string>(deck.title);
   const [description, setDescription] = useState<string>(deck.description);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +56,7 @@ export default function EditForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setErrors([]);
     setIsLoading(true);
 
     const validatedDeck = deckFormSchema.safeParse({
@@ -62,7 +66,7 @@ export default function EditForm({
       cards,
     });
     if (!validatedDeck.success) {
-      console.log(validatedDeck.error.issues);
+      setErrors(validatedDeck.error.issues);
     } else {
       const res = await fetch("/api/deck/edit", {
         method: "POST",
@@ -144,66 +148,73 @@ export default function EditForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="lg:w-full">
-      <div className="flex flex-col items-end space-y-3">
-        <label className="form-control w-full">
-          <div className="label">
-            <span className="label-text">Deck name</span>
-          </div>
-          <input
-            type="text"
-            placeholder="JLPT N2 Kanji"
-            className="input input-bordered w-full"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-        </label>
-        <label className="form-control w-full">
-          <div className="label">
-            <span className="label-text">Description</span>
-          </div>
-          <textarea
-            className="textarea textarea-bordered h-24"
-            placeholder="Deck containing all the JLPT N2 Grammer from ..."
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          ></textarea>
-        </label>
-        <button
-          className={"btn btn-success w-fit"}
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className="loading loading-spinner"></span>
-          ) : (
-            "Save"
-          )}
-        </button>
-      </div>
-      <div className="divider"></div>
-      <div className="flex flex-col items-center space-y-3">
-        {/* Already added cards here */}
-        {cards.map((_card, index) => {
-          return CardItem(index);
+    <div>
+      {errors.length > 0 &&
+        errors.map((error) => {
+          return <FormError error={error} />;
         })}
-        <div className="pb-16">
+      <form onSubmit={handleSubmit} className="lg:w-full">
+        <div className="flex flex-col items-end space-y-3">
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Deck name</span>
+            </div>
+            <input
+              type="text"
+              placeholder="JLPT N2 Kanji"
+              className="input input-bordered w-full"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+          </label>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Description</span>
+            </div>
+            <textarea
+              className="textarea textarea-bordered h-24"
+              placeholder="Deck containing all the JLPT N2 Grammer from ..."
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            ></textarea>
+          </label>
           <button
-            className="btn btn-primary"
-            onClick={(_e) => {
-              let temp = [...cards];
-              temp.push({ hiragana: "", kanji: "", definition: "" });
-              setCards(temp);
-            }}
+            className={"btn btn-success w-fit"}
+            type="submit"
+            disabled={isLoading}
           >
-            Add Card
+            {isLoading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Save"
+            )}
           </button>
         </div>
-      </div>
-    </form>
+        <div className="divider"></div>
+        <div className="flex flex-col items-center space-y-3">
+          {/* Already added cards here */}
+          {cards.map((_card, index) => {
+            return CardItem(index);
+          })}
+          <div className="pb-16">
+            <button
+              className="btn btn-primary"
+              onClick={(_e) => {
+                let temp = [...cards];
+                temp.push({ hiragana: "", kanji: "", definition: "" });
+                setCards(temp);
+                setErrors([]);
+              }}
+            >
+              Add Card
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
